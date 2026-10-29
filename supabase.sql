@@ -10,12 +10,16 @@ create table if not exists public.appointments (
   phone text not null,
   date date not null,
   time_slot text not null,
+  visit_type text not null default 'Visita presencial en la propiedad',
+  visit_address text,
   status text not null default 'pending' check (status in ('pending','confirmed','cancelled')),
   created_at timestamptz not null default now()
 );
 
 -- Permite actualizar un proyecto REDMOOT que ya tuviera la tabla creada.
 alter table public.appointments add column if not exists time_slot text;
+alter table public.appointments add column if not exists visit_type text not null default 'Visita presencial en la propiedad';
+alter table public.appointments add column if not exists visit_address text;
 update public.appointments set time_slot = 'Por coordinar' where time_slot is null;
 alter table public.appointments alter column time_slot set not null;
 alter table public.appointments add column if not exists status text not null default 'pending';
@@ -175,3 +179,4 @@ grant select, update on public.appointments, public.property_inquiries to authen
 grant select on public.contact_inquiries to authenticated;
 
 -- No agregues políticas de lectura pública para estos datos personales.
+

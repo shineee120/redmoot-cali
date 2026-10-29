@@ -32,3 +32,13 @@ Las propiedades publicadas se leen desde `properties`. Las reservas se guardan e
 - Cambiá el teléfono de WhatsApp y correo de muestra por los datos reales de REDMOOT.
 - Reemplazá o revisá las cuatro propiedades y sus imágenes de ejemplo.
 - Configurá Supabase y autorizá al primer administrador antes de usar `/admin`.
+
+## Página Nosotros, asistente IA y cita a domicilio
+
+- La página `nosotros.html` presenta la misión, visión, objetivos y valores de REDMOOT.
+- El asistente de la esquina inferior derecha usa la API Responses de OpenAI mediante la función privada `api/assistant.js`. Para activarlo, agrega `OPENAI_API_KEY` en **Vercel → Settings → Environment Variables** y vuelve a desplegar. Opcionalmente, agrega `OPENAI_MODEL`; por defecto usa `gpt-6-luna`. Nunca pongas la clave de OpenAI en `app.js` ni en `config.js`. La API debe tener saldo disponible y el uso puede generar cargos.
+- El formulario de citas permite solicitar una visita presencial o una cita a domicilio con recorrido virtual 3D. Para esta última pide la dirección y registra modalidad/dirección en `appointments`; el equipo debe confirmar la disponibilidad.
+- Si ya ejecutaste el SQL antes, vuelve a ejecutar el archivo actualizado: añade de forma compatible `visit_type` y `visit_address`.
+
+Las preguntas precargadas incluyen propiedades disponibles, cómo agendar, barrios y cita a domicilio 3D. Si no se configura `OPENAI_API_KEY`, el asistente avisa que falta conectarlo y los otros formularios siguen operando.
+
